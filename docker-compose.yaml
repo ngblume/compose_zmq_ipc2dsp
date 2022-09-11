@@ -1,0 +1,49 @@
+# docker compose syntay version used
+version: "3.9"
+
+# define services in this docker compose "environment"
+services:
+
+  # =====================================================================================
+
+  # service "ipc2dsp"
+  # provide interface to control system on RT system
+  ipc2dsp:
+    # Define Dockerfile acc. to which the ipc2dsp container shall be "built"
+    build:
+      context: ./ipc2dsp
+      dockerfile: Dockerfile
+    
+    volumes:
+      - ./ipc2dsp:/app
+
+    # provide tty-like terminal for this container (like "interactive", when using "docker run")
+    tty: true
+    
+    # bind port 5555 of this container (pub-suib pattern) to port 5555 og host machine
+    ports:
+      - "5555:5555"
+  
+  # =====================================================================================
+
+  # service "interface_sub"
+  # simple subscribed to publisher interfcae of ipc2dsp container
+  interface_sub:
+    # Define Dockerfile acc. to which the ipc2dsp container shall be "built"
+    build:
+      context: ./interface_sub
+      dockerfile: Dockerfile
+    
+    volumes:
+      - ./interface_sub:/app
+
+    environment:
+      # define environment variable to contain the name of the server this cotainer shall connect to
+      # DO NOT USE SPACES !!!!! THEY WILL BE CONSIDERED PART OF THE KEY !!!
+      - ZMQ_PUB_ADDRESS=tcp://ipc2dsp:5555
+
+    # provide tty-like terminal for this container (like "interactive", when using "docker run")
+    tty: true
+    
+    # bind port 
+    # n/a, since no port of this interface_sub cotainer shall be available from outside the host machine
