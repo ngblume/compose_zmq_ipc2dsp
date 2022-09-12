@@ -13,7 +13,7 @@ services:
     build:
       context: ./ipc2dsp
       dockerfile: Dockerfile
-    
+
     volumes:
       - ./ipc2dsp:/app
 
@@ -26,6 +26,35 @@ services:
   
   # =====================================================================================
 
+  # service "interface_flask_api"
+  # provide flask web page as an API
+  interface_flask_api:
+    # Define build settings for container
+    build:
+          context: ./interface_flask_api
+          dockerfile: Dockerfile
+
+    # Bind host port 8000 to container port 5000
+    ports:
+      - "8000:5000"
+
+    # Mount volume directly into container
+    volumes:
+      - ./interface_flask_api:/app
+    
+    # enable auto-reload upon file changes in mounted folder
+    environment:
+      FLASK_DEBUG: True
+
+  # =====================================================================================
+
+  # service "redis"
+  # provide "In-Memory-Datenbank mit einer einfachen Schlüssel-Werte-Datenstruktur"
+  redis:
+    image: "redis:alpine"
+
+  # =====================================================================================
+
   # service "interface_sub"
   # simple subscribed to publisher interfcae of ipc2dsp container
   interface_sub:
@@ -33,7 +62,7 @@ services:
     build:
       context: ./interface_sub
       dockerfile: Dockerfile
-    
+
     volumes:
       - ./interface_sub:/app
 
