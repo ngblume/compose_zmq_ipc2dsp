@@ -5,6 +5,11 @@ FROM python:3.7-alpine
 # Set work directory (where files are copied, etc.)
 WORKDIR /app
 
+# prevents creattion of pychache on disk
+ENV PYTHONDONTWRITEBYTECODE 1
+# prevents buffering of stdout and stderr
+ENV PYTHONUNBUFFERED 1
+
 # install maybe required packages
 RUN apk add --no-cache gcc musl-dev linux-headers
 

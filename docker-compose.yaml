@@ -26,7 +26,7 @@ services:
   
   # =====================================================================================
 
-  # service "interface_flask_api"
+  # service "interface_flask"
   # provide flask web page as an API
   interface_flask:
     # Define build settings for container
@@ -45,6 +45,27 @@ services:
     # enable auto-reload upon file changes in mounted folder
     environment:
       FLASK_DEBUG: True
+
+  # =====================================================================================
+
+  # service "interface_fastapi"
+  # provide FastAPI
+  interface_fastapi:
+    # Define build settings for container
+    build:
+          context: ./interface_fastapi
+          dockerfile: Dockerfile
+
+    # Command to fire up uvicorn with fastAPI app
+    command: uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 5100
+
+    # Bind host port 8000 to container port 5000
+    ports:
+      - "8100:5100"
+
+    # Mount volume directly into container
+    volumes:
+      - ./interface_fastapi:/app
 
   # =====================================================================================
 

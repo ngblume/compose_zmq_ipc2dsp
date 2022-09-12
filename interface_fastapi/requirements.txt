@@ -1,0 +1,6 @@
+pyzmq
+fastapi
+uvicorn
+
+pytest
+requests
