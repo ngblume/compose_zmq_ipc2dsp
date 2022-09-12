@@ -8,7 +8,7 @@ WORKDIR /app
 
 # Set ENVIRONMENT variables for FLASK to work smoothless
 # Flask app itself
-ENV FLASK_APP=interface_flask_api.py 
+ENV FLASK_APP=interface_flask.py 
 # Bind to all network interfaces
 ENV FLASK_RUN_HOST=0.0.0.0
 # Bind to port 5000 iwth the app (debug=true usually binds to 5000, if no port is specified)
@@ -27,7 +27,7 @@ RUN pip install -r requirements.txt
 EXPOSE 5000
 
 # Copy "interface_flask_api.py" to WORKDIR
-COPY interface_flask_api.py interface_flask_api.py
+COPY interface_flask.py interface_flask.py
 
 # Start Flask app
 CMD ["flask", "run"]

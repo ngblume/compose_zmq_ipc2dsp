@@ -28,10 +28,10 @@ services:
 
   # service "interface_flask_api"
   # provide flask web page as an API
-  interface_flask_api:
+  interface_flask:
     # Define build settings for container
     build:
-          context: ./interface_flask_api
+          context: ./interface_flask
           dockerfile: Dockerfile
 
     # Bind host port 8000 to container port 5000
@@ -40,7 +40,7 @@ services:
 
     # Mount volume directly into container
     volumes:
-      - ./interface_flask_api:/app
+      - ./interface_flask:/app
     
     # enable auto-reload upon file changes in mounted folder
     environment:

@@ -1,6 +1,12 @@
 import zmq
 import time
 import os
+# random number generator
+from random import seed
+from random import random
+
+# seed random number generator
+seed(1)
 
 # define fct for publisher with default values for ip and port
 def main():
@@ -16,14 +22,14 @@ def main():
     num = 0
 
     while True:
+        # get random number
+        num = random()
         # Update content in python object
         work_message = { 'num' : num }
         # Send python object as JSON in ZMQ message
         socket.send_json(work_message)
         # Print current num to console for debugging
         print("Sending msg with {} ...".format(num))
-        # Increase counter "num"
-        num += 1
         # wait for 1 second
         time.sleep(1)
 
