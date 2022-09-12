@@ -29,7 +29,7 @@ def main():
         # Send python object as JSON in ZMQ message
         socket.send_json(work_message)
         # Print current num to console for debugging
-        print("Sending msg with {} ...".format(num))
+        # print("Sending msg with {} ...".format(num))
         # wait for 1 second
         time.sleep(1)
 
