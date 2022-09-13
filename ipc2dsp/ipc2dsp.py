@@ -144,10 +144,15 @@ if __name__ == "__main__":
     thread_ZMQ_REQ_REPL_Cmds.start()
     sleep(1)
 
-    
+    iteration_counter = 0
+
     while not killer.kill_now:
-        list_threads()
-        time.sleep(5)
+        time.sleep(.5)
+        iteration_counter += 1
+        if (iteration_counter == 10):
+            list_threads()
+            iteration_counter = 0
+        
     
     print("Starting graceful shutdown ...")
 

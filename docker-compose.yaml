@@ -17,6 +17,9 @@ services:
     volumes:
       - ./ipc2dsp:/app
 
+    # Define period for docker to wait for container to exit gracefully (from SIGTERM to SIGKILL)
+    stop_grace_period: 2m
+
     # provide tty-like terminal for this container (like "interactive", when using "docker run")
     tty: true
     
@@ -50,6 +53,9 @@ services:
     volumes:
       - ./interface_flask:/app
 
+    # Define period for docker to wait for container to exit gracefully (from SIGTERM to SIGKILL)
+    stop_grace_period: 2m
+
     # Command to fire up ipc2dsp
     command: flask run
 
@@ -71,6 +77,9 @@ services:
     volumes:
       - ./interface_fastapi:/app
 
+    # Define period for docker to wait for container to exit gracefully (from SIGTERM to SIGKILL)
+    stop_grace_period: 2m
+
     # Command to fire up uvicorn with fastAPI app
     command: uvicorn app.app.main:app --reload --workers 1 --host 0.0.0.0 --port 5100
 
@@ -80,6 +89,9 @@ services:
   # provide "In-Memory-Datenbank mit einer einfachen Schlüssel-Werte-Datenstruktur"
   redis:
     image: "redis:alpine"
+
+    # Define period for docker to wait for container to exit gracefully (from SIGTERM to SIGKILL)
+    stop_grace_period: 2m
 
   # =====================================================================================
 
@@ -93,6 +105,9 @@ services:
 
     volumes:
       - ./interface_sub:/app
+
+    # Define period for docker to wait for container to exit gracefully (from SIGTERM to SIGKILL)
+    stop_grace_period: 2m
 
     environment:
       # define environment variable to contain the name of the server this cotainer shall connect to
