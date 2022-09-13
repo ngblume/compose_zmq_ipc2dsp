@@ -2,19 +2,22 @@
 # Define image to start from
 FROM python:3.10-alpine
 
-# Set work directory (where files are copied, etc.)
-WORKDIR /app
+# Mount folder to container (also at creation, not just later during docker compose)
+VOLUME /app
 
 # prevents creattion of pychache on disk
 ENV PYTHONDONTWRITEBYTECODE 1
 # prevents buffering of stdout and stderr
 ENV PYTHONUNBUFFERED 1
 
+# Set work directory (where files are copied, etc.)
+WORKDIR /
+
+# Copy list of required Python packages to container
+COPY requirements.txt requirements.txt
+
 # install maybe required packages
 RUN apk add --no-cache gcc musl-dev linux-headers
-
-# Copy requirements file to container WORKDIR
-COPY requirements.txt requirements.txt
 
 # Install all requirements in container
 RUN pip install -r requirements.txt
@@ -26,9 +29,3 @@ EXPOSE 5555
 EXPOSE 6000
 # REQ-REPL-port for requests / replies > CMDs
 EXPOSE 7000
-
-# Copy application to WORKDIR
-COPY ipc2dsp.py ipc2dsp.py
-
-# Run ipc2dsp python app
-CMD ["python3","ipc2dsp.py"]

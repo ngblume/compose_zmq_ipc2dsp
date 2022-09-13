@@ -28,6 +28,9 @@ services:
       - "5555:5555"
       - "6000:6000"
       - "7000:7000"
+    
+    # Command to fire up ipc2dsp
+    command: python3 /app/ipc2dsp.py
   
   # =====================================================================================
 
@@ -46,10 +49,9 @@ services:
     # Mount volume directly into container
     volumes:
       - ./interface_flask:/app
-    
-    # enable auto-reload upon file changes in mounted folder
-    environment:
-      FLASK_DEBUG: True
+
+    # Command to fire up ipc2dsp
+    command: flask run
 
   # =====================================================================================
 
@@ -61,9 +63,6 @@ services:
           context: ./interface_fastapi
           dockerfile: Dockerfile
 
-    # Command to fire up uvicorn with fastAPI app
-    command: uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 5100
-
     # Bind host port 8100 to container port 5100
     ports:
       - "8100:5100"
@@ -71,6 +70,9 @@ services:
     # Mount volume directly into container
     volumes:
       - ./interface_fastapi:/app
+
+    # Command to fire up uvicorn with fastAPI app
+    command: uvicorn app.app.main:app --reload --workers 1 --host 0.0.0.0 --port 5100
 
   # =====================================================================================
 
@@ -102,3 +104,6 @@ services:
     
     # bind port 
     # n/a, since no port of this interface_sub cotainer shall be available from outside the host machine
+
+    # Command to fire up interface_sub
+    command: python3 /app/interface_sub.py
