@@ -1,6 +1,6 @@
  # syntax=docker/dockerfile:1
 # Define image to start from
-FROM python:3.7-alpine
+FROM python:3.10-alpine
 
 # Set work directory (where files are copied, etc.)
 WORKDIR /app

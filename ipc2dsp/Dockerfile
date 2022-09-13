@@ -19,11 +19,13 @@ COPY requirements.txt requirements.txt
 # Install all requirements in container
 RUN pip install -r requirements.txt
 
-# Expose ports for ipc2dsp
+# Expose ports for ipc2dsp in the inter-container network
 # PUB-port for status
 EXPOSE 5555
-# REQ-REPL-port for requests / replies
+# REQ-REPL-port for requests / replies > VALUES
 EXPOSE 6000
+# REQ-REPL-port for requests / replies > CMDs
+EXPOSE 7000
 
 # Copy application to WORKDIR
 COPY ipc2dsp.py ipc2dsp.py

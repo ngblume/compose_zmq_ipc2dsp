@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # base image to start from with this container
-FROM python:3.7-alpine
+FROM python:3.10-alpine
 
 # set work directory
 WORKDIR /app
@@ -16,8 +16,10 @@ ENV PYTHONUNBUFFERED 1
 ENV FLASK_APP=interface_flask.py 
 # Bind to all network interfaces
 ENV FLASK_RUN_HOST=0.0.0.0
-# Bind to port 5000 iwth the app (debug=true usually binds to 5000, if no port is specified)
+# Bind to port 5000 with the app (debug=true usually binds to 5000, if no port is specified)
 ENV FLASK_RUN_PORT=5000
+# Debug mode
+ENV FLASK_DEBUG=1
 
 # Install add packages
 RUN apk add --no-cache gcc musl-dev linux-headers

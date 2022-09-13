@@ -20,9 +20,14 @@ services:
     # provide tty-like terminal for this container (like "interactive", when using "docker run")
     tty: true
     
-    # bind port 5555 of this container (pub-suib pattern) to port 5555 og host machine
+    # bind ports
+    # 5555: ZMQ pub-sub pattern
+    # 6000: ZMQ REQ/REPL pattern (Values)
+    # 7000: ZMQ REQ/REPL pattern (Direct CMDs)
     ports:
       - "5555:5555"
+      - "6000:6000"
+      - "7000:7000"
   
   # =====================================================================================
 
@@ -59,7 +64,7 @@ services:
     # Command to fire up uvicorn with fastAPI app
     command: uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 5100
 
-    # Bind host port 8000 to container port 5000
+    # Bind host port 8100 to container port 5100
     ports:
       - "8100:5100"
 

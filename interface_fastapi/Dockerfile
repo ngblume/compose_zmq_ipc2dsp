@@ -34,5 +34,3 @@ EXPOSE 5100
 # Copy application to WORKDIR
 COPY . /app/
 
-# Start Flask app
-CMD ["flask", "run"]
